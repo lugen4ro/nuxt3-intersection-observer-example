@@ -9,6 +9,24 @@ Files of concern are
 - app.vue --> Main page where you can see how the custom v-intersetct directive is used
 - plugins/intersectionDirective.ts --> Implemenation of the custom directive
 
+The custom directive "v-intsersect" can be used like this. 
+```javascript
+<template>
+    <div v-intersect="intersectOptions" v-for="index in 20" :key="index" class="panel">
+        <p>{{ index }}</p>
+    </div>
+</template>
+
+<script setup>
+  const intersectOptions = {
+      onBegin: (element) => { element.style.backgroundColor = "#f58142" }, // callback to execute when view time and area threshold are surpassed
+      onEnd: (element) => { element.style.backgroundColor = "#02bfd4" }, // callback to execute when element leaves viewport
+      totalViewTimeThresholdms: 1000, // must intersect 1000ms with the viewport 
+      observerOptions: { threshold: 0.5 }, // must intsersect at least 50% with the viewport 
+  }
+</script>
+```
+
 # Showcase
 |time threshold = 0|time threshold = 1s|
 |-|-|
@@ -16,8 +34,7 @@ Files of concern are
 
 
 
-
-# How to Use
+# How to use
 Clone this repo and execute the following to install packages and start the dev server
 ```bash
 yarn install # install dependences
